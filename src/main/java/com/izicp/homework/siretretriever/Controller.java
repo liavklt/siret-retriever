@@ -28,7 +28,7 @@ public class Controller {
   private InputNumbersReader inputNumbersReader;
 
   @Autowired
-  public Controller(InputNumbersReader inputNumbersReader){
+  public Controller(InputNumbersReader inputNumbersReader) {
     this.inputNumbersReader = inputNumbersReader;
   }
 
@@ -42,18 +42,19 @@ public class Controller {
     try {
       for (String siret : siretNumbers) {
         Company company = getCompanyInformationForSiretNumber(siret);
-        CollectionUtils.addIgnoreNull(companies,company);
+        CollectionUtils.addIgnoreNull(companies, company);
       }
       ResponseToCsvWriter.writeCompanies(companies);
       return companies.stream().map(Company::toString).collect(Collectors.toList());
     } catch (SiretApplicationException e) {
-      logger.log(Level.SEVERE, "Exception during the run of this get request: "+e.getMessage());
+      logger.log(Level.SEVERE, "Exception during the run of this get request: " + e.getMessage());
       e.printStackTrace();
       return null;
     }
   }
 
-  private Company getCompanyInformationForSiretNumber(String siret) throws SiretApplicationException {
+  private Company getCompanyInformationForSiretNumber(String siret)
+      throws SiretApplicationException {
     Company company = null;
     try {
       String url = "https://entreprise.data.gouv.fr/api/sirene/v3/etablissements/" + siret;

@@ -1,8 +1,6 @@
 package com.izicp.homework.siretretriever;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,13 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -34,7 +26,7 @@ class ControllerTest {
   private Controller controller;
 
   @BeforeEach
-  void setUp(){
+  void setUp() {
     MockitoAnnotations.openMocks(this);
   }
 
@@ -43,7 +35,8 @@ class ControllerTest {
     //ARRANGE
     MockHttpServletRequest request = new MockHttpServletRequest();
     RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-    when(inputNumbersReader.getSiretNumbersFromInputFile()).thenReturn(Collections.singletonList("31302979500017"));
+    when(inputNumbersReader.getSiretNumbersFromInputFile()).thenReturn(
+        Collections.singletonList("31302979500017"));
 
     //ACT
     List<String> companies = controller.retrieveCompanyInformation();

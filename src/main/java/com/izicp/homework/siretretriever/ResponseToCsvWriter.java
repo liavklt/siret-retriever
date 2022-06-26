@@ -15,6 +15,7 @@ import model.Company;
  * Class that handles the writing to the local data storage system (csv in our case) based on the company information we have recovered
  */
 public class ResponseToCsvWriter {
+
   public static void writeCompanies(List<Company> companies) throws SiretApplicationException {
 
     try {
@@ -23,12 +24,14 @@ public class ResponseToCsvWriter {
       StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
       beanToCsv.write(companies);
       writer.close();
-    }catch(IOException ioException){
+    } catch (IOException ioException) {
       throw new SiretApplicationException("Error while writing to file", ioException);
-    }catch (CsvRequiredFieldEmptyException csvRequiredFieldEmptyException) {
-      throw new SiretApplicationException("There is a field missing needed for the csv transform",csvRequiredFieldEmptyException);
+    } catch (CsvRequiredFieldEmptyException csvRequiredFieldEmptyException) {
+      throw new SiretApplicationException("There is a field missing needed for the csv transform",
+          csvRequiredFieldEmptyException);
     } catch (CsvDataTypeMismatchException csvDataTypeMismatchException) {
-      throw new SiretApplicationException("There is mismatch in the csv data types",csvDataTypeMismatchException);
+      throw new SiretApplicationException("There is mismatch in the csv data types",
+          csvDataTypeMismatchException);
     }
   }
 }
